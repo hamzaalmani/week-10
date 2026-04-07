@@ -1,21 +1,16 @@
+# app.py
+
 import streamlit as st
+import pandas as pd
+from apputil import predict_rating
 
-from apputil import *
+st.title("Coffee Rating Predictor")
 
+price = st.number_input("Price (100g_USD)", min_value=0.0, value=10.0)
 
-st.write(
-'''
-# Week x: [Title]
+roast = st.text_input("Roast (e.g., Light, Medium, Dark)")
 
-...
-''')
-
-# currently set for integer input
-amount = st.number_input("Exercise Input: ", 
-                         value=None, 
-                         step=1, 
-                         format="%d")
-
-if amount is not None:
-    st.write(f"The exercise input was {amount}.")
-
+if st.button("Predict"):
+    df = pd.DataFrame([[price, roast]], columns=["100g_USD", "roast"])
+    pred = predict_rating(df)
+    st.success(f"Predicted rating: {pred[0]:.2f}")
