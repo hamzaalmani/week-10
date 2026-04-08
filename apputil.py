@@ -10,6 +10,19 @@ MODEL_2_PATH = Path("model_2.pickle")
 
 
 def roast_category(value):
+     """
+    Convert roast text into a numeric category.
+
+    Parameters
+    ----------
+    value : str or NaN
+        Roast description (e.g., 'Light', 'Medium-Dark').
+
+    Returns
+    -------
+    float
+        Numeric category for roast, or NaN if unknown.
+    """
     if pd.isna(value):
         return np.nan
 
@@ -29,6 +42,14 @@ def roast_category(value):
 
 
 def load_models():
+    """
+    Load trained models from pickle files.
+
+    Returns
+    -------
+    tuple
+        (model_1, model_2)
+    """
     with open(MODEL_1_PATH, "rb") as f:
         model_1 = pickle.load(f)
 
@@ -39,6 +60,23 @@ def load_models():
 
 
 def predict_rating(df_X, text=False):
+    """
+    Predict coffee ratings based on input features.
+
+    Parameters
+    ----------
+    df_X : pandas.DataFrame
+        Must contain:
+        - '100g_USD' (float)
+        - 'roast' (string, optional)
+    text : bool, optional
+        If True, use text-based prediction (not implemented).
+
+    Returns
+    -------
+    numpy.ndarray
+        Predicted rating values.
+    """
     model_1, model_2 = load_models()
 
     # (Bonus 4 placeholder)
