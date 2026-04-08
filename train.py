@@ -1,3 +1,10 @@
+"""
+Train and save machine learning models for coffee rating prediction.
+
+- model_1: Linear Regression using only price (100g_USD)
+- model_2: Decision Tree using price and roast category
+"""
+
 import pickle
 import pandas as pd
 import numpy as np
@@ -9,6 +16,7 @@ from apputil import roast_category
 URL = "https://raw.githubusercontent.com/leontoddjohnson/datasets/refs/heads/main/data/coffee_analysis.csv"
 
 def main():
+    """Load data, train models, and save them as pickle files."""
     df = pd.read_csv(URL)
 
     # -------- Model 1 (Linear Regression) --------
